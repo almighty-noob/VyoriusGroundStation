@@ -274,7 +274,99 @@ ApplicationWindow {
             mainWindow.showIndicatorDrawer(toolSelectComponent, null)
         }
     }
+    Button {
+        id:         logout
+        text: "Log Out"
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.topMargin: 5
+        onClicked: {
+            Qt.quit();
+        }
+    }
+    ColumnLayout {
+            anchors.fill: parent
 
+            Button {
+                Layout.alignment:Qt.AlignBottom
+                Layout.bottomMargin: 5
+                Layout.leftMargin: 5
+                Layout.preferredHeight: 50
+                Layout.preferredWidth: 50
+                padding:0
+                icon.source: "qrc:/qmlimages/Grid"
+                icon.width: 50
+                icon.height: 50
+                icon.cache: true
+                icon.color:"transparent"
+                onClicked: gridDialog.open()
+            }
+
+            Dialog {
+                id: gridDialog
+                width: parent.width/4
+                height:width
+                standardButtons: Dialog.Ok
+                modal: true
+                visible: false
+                x: 5
+                y: (parent.height - height)
+                GridLayout {
+                    id: gridLayout
+                    anchors.fill: parent
+                    anchors.margins: 0
+                    rows: 3
+                    columns: 3
+
+
+                    Repeater {
+                        model: 9 // 9x9 grid
+
+                        Button {
+                            text: index
+                            anchors.margins: 0
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            Layout.preferredWidth: gridDialog.width/3
+                            Layout.preferredHeight:Layout.preferredWidth
+                            onClicked:{
+                                textLabel.text = text+" was pressed";
+                                textLabel.visible = true;
+                                textRect.visible = true;
+                                timerLabel.start()
+                            }
+                        Timer {
+                            id:timerLabel
+                            repeat:false
+                            interval:500
+                            onTriggered: {
+                                textLabel.visible = false;
+                                textRect.visible = false;
+                            }
+                        }
+
+                        }
+                    }
+                }
+            }
+
+        }
+        Rectangle {
+            id:textRect
+            x: (parent.width - width)/2
+            anchors.top: parent.top
+            anchors.topMargin: 5
+            color:"#ffffff"
+            height:textLabel.height
+            width:textLabel.width
+            Label {
+                id:textLabel
+                visible:false
+                font.bold: true
+                font.pointSize: 18
+                color: "#000000"
+        }
+    }
     Component {
         id: toolSelectComponent
 

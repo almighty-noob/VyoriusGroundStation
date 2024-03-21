@@ -185,7 +185,7 @@ public class QGCActivity extends QtActivity
         super.onCreate(savedInstanceState);
         nativeInit();
         PowerManager pm = (PowerManager)_instance.getSystemService(Context.POWER_SERVICE);
-        _wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "QGroundControl");
+        _wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "Vyorius Ground Stattion");
         if(_wakeLock != null) {
             _wakeLock.acquire();
         } else {
@@ -215,7 +215,7 @@ public class QGCActivity extends QtActivity
         if (_wifiMulticastLock == null)
                 {
                     WifiManager wifi = (WifiManager) _instance.getSystemService(Context.WIFI_SERVICE);
-                    _wifiMulticastLock = wifi.createMulticastLock("QGroundControl");
+                    _wifiMulticastLock = wifi.createMulticastLock("Vyorius Ground Station");
                     _wifiMulticastLock.setReferenceCounted(true);
                 }
 
